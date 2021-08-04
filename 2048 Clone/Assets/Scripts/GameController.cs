@@ -134,7 +134,8 @@ public class GameController : MonoBehaviour
 
     public void ScoreUpdate(int score)
     {
-        scoreText.text = score.ToString();
+        this.score += score;
+        scoreText.text = this.score.ToString();
     }
 
     public void GameOverCheck()
