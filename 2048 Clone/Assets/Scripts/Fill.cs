@@ -51,7 +51,6 @@ public class Fill : MonoBehaviour
             hasCombined = true;
         }
     }
-
     public void Double()
     {
         value *= 2;
