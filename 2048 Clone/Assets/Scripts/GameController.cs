@@ -8,12 +8,11 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
-    public static int ticker;
-    
-    [SerializeField] GameObject fillPrefab;
-
     [SerializeField] Cell[] cells;
+    [SerializeField] GameObject fillPrefab;
+    public static int ticker;
     public static Action<MoveDirection> slide;
+
     #region UI elements
     public int score;
     [SerializeField] Text scoreText;
@@ -51,34 +50,29 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             CountTicker();
-            Debug.Log("UP");
             slide(MoveDirection.Up);
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             CountTicker();
-            Debug.Log("RIGHT");
             slide(MoveDirection.Right);
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             CountTicker();
-            Debug.Log("LEFT");
             slide(MoveDirection.Left);
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             CountTicker();
-            Debug.Log("DOWN");
             slide(MoveDirection.Down);
         }
     }
     public void CountTicker()
     {
         ticker++;
-        if (ticker == 4)
+        if (ticker % 4 == 0)
         {
-            ticker = 0; 
             SpawnFill();
         }
     }
@@ -124,8 +118,6 @@ public class GameController : MonoBehaviour
             SpawnFill();
             return;
         }
-
-
     }
 
     public void StartSpawnFill()
@@ -138,17 +130,11 @@ public class GameController : MonoBehaviour
             cells[whichSpawn].GetComponent<Cell>().fill = tempFillText;
             tempFillText.FillValueUpdate(2);
         }
-        else
-        {
-            SpawnFill();
-            return;
-        }
     }
 
     public void ScoreUpdate(int score)
     {
-        this.score = score;
-        scoreText.text = this.score.ToString();
+        scoreText.text = score.ToString();
     }
 
     public void GameOverCheck()
