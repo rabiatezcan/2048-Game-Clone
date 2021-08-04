@@ -17,10 +17,9 @@ public class Cell : MonoBehaviour
     public Cell left;
     public Cell up;
     public Cell down;
-
-
+    
     public Fill fill;
-
+    
     private void OnEnable()
     {
         GameController.slide += OnSlide;
@@ -30,7 +29,7 @@ public class Cell : MonoBehaviour
     {
         GameController.slide -= OnSlide;
     }
-
+    
     private Cell ControlDirection(MoveDirection direction)
     {
         if (direction == MoveDirection.Down)
@@ -45,7 +44,7 @@ public class Cell : MonoBehaviour
 
     private void OnSlide(MoveDirection direction)
     {
-        //CellCheck(); 
+        CellCheck(); 
         Cell currentCell = this;
         if (direction == MoveDirection.Up)
         {
@@ -70,12 +69,13 @@ public class Cell : MonoBehaviour
             if (left != null)
                 return;
         }
-
+        
         Slide(currentCell, direction);
     }
 
     private void Slide(Cell currentCell, MoveDirection direction)
     {
+        
         if (currentCell.ControlDirection(direction) == null)
             return;
 
@@ -84,6 +84,7 @@ public class Cell : MonoBehaviour
         {
             nextCell = nextCell.ControlDirection(direction);
         }
+
         if (nextCell.fill != null)
         {
             if (currentCell.fill != null)
@@ -110,55 +111,50 @@ public class Cell : MonoBehaviour
                 Slide(currentCell, direction);
             }
         }
+
         if (currentCell.ControlDirection(direction) == null)
             return;
         Slide(currentCell.ControlDirection(direction), direction);
     }
+    void CellCheck()
+    {
+        if (fill == null)
+        {
+            return;
+        }
 
+        if (up != null)
+        {
+            if (up.fill == null)
+                return;
+            if (up.fill.value == fill.value)
+                return;
+        }
 
-//     void CellCheck()
-//     {
-//         if (fill == null)
-//         {
-//             return;
-//         }
-//
-//         if (up != null)
-//         {
-//             if (up.fill == null)
-//             {
-//                 if (up.fill.value == null)
-//                     return;
-//             }
-//         }
-//
-//         if (down != null)
-//         {
-//             if (down.fill == null)
-//             {
-//                 if (down.fill.value == null)
-//                     return;
-//             }
-//         }
-//
-//         if (right != null)
-//         {
-//             if (right.fill == null)
-//             {
-//                 if (right.fill.value == null)
-//                     return;
-//             }
-//         }
-//
-//         if (left != null)
-//         {
-//             if (left.fill == null)
-//             {
-//                 if (left.fill.value == null)
-//                     return;
-//             }
-//         }
-//
-//         GameController.instance.GameOverCheck();
-//     }
- }
+        if (down != null)
+        {
+            if (down.fill == null)
+                return;
+            if (down.fill.value == fill.value)
+                return;
+        }
+
+        if (right != null)
+        {
+            if (right.fill == null)
+                return;
+            if (right.fill.value == fill.value)
+                return;
+        }
+
+        if (left != null)
+        {
+            if (left.fill == null)
+                return;
+            if (left.fill.value == fill.value)
+                return;
+        }
+
+        GameController.instance.GameOverCheck();
+    }
+}
