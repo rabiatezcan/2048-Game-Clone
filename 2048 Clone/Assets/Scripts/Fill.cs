@@ -58,7 +58,7 @@ public class Fill : MonoBehaviour
         valueDisplay.text = value.ToString();
         
         int colorIndex = GetColorIndex(value);
-        image.color = GameController.instance.fillColors[colorIndex % 5];
+        image.color = GameController.instance.fillColors[colorIndex];
         
         GameController.instance.WinningCheck(value);
         

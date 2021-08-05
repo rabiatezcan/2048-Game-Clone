@@ -154,7 +154,5 @@ public class Cell : MonoBehaviour
             if (left.fill.value == fill.value)
                 return;
         }
-
-        GameController.instance.GameOverCheck();
     }
 }

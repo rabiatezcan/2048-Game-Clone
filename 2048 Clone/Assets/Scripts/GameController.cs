@@ -16,7 +16,6 @@ public class GameController : MonoBehaviour
     #region UI elements
     public int score;
     [SerializeField] Text scoreText;
-    private int isGameOver;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private int winningScore;
     [SerializeField] private GameObject winningPanel;
@@ -88,7 +87,7 @@ public class GameController : MonoBehaviour
         }
         if (isFull)
         {
-            return;
+            GameOverCheck();
         }
         float chance = UnityEngine.Random.Range(0f, 1f);
         int whichSpawn = UnityEngine.Random.Range(0, cells.Length);
@@ -140,11 +139,7 @@ public class GameController : MonoBehaviour
 
     public void GameOverCheck()
     {
-        isGameOver++;
-        if (isGameOver >= 16)
-        {
-            gameOverPanel.SetActive(true);
-        }
+        gameOverPanel.SetActive(true);
     }
     public void Restart()
     {
