@@ -46,6 +46,8 @@ public class GameController : MonoBehaviour
 
     public void GetInput()
     {
+        if(Input.GetKeyDown(KeyCode.A))
+            SpawnFill();
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             CountTicker();
@@ -139,6 +141,8 @@ public class GameController : MonoBehaviour
 
     public void GameOverCheck()
     {
+        gameObject.SetActive(false);
+        gameOverPanel.transform.GetChild(2).gameObject.GetComponent<Text>().setTe
         gameOverPanel.SetActive(true);
     }
     public void Restart()
